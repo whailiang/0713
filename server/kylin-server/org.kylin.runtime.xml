@@ -1,0 +1,25 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+  <interface name="com.kylin.runtime.interface">
+    <signal name="app_start">
+      <arg name="app_info" type="s" direction="out"/>
+    </signal>
+    <signal name="run_app_reply">
+      <arg name="reply" type="s" direction="out"/>
+    </signal>
+    <signal name="kill_app">
+      <arg name="app_info" type="s" direction="out"/>
+    </signal>
+    <method name="exec_command">
+      <arg name="app_info" type="av" direction="in"/>
+    </method>
+    <method name="set_platform_app_status">
+      <arg name="platform_status" type="av" direction="in"/>
+    </method>
+    <method name="test">
+    </method>
+    <method name="daemon_ready">
+      <arg name="app_cmd_andapp_platform" type="av" direction="in"/>
+    </method>
+  </interface>
+</node>
