@@ -3,6 +3,7 @@
 
 #include <QThread>
 #include <QProcess>
+#include <QDebug>
 
 class bwrap_thread : public QThread
 {

@@ -2,6 +2,7 @@
 
 app_start_thread::app_start_thread( QString app_cmd,client_daemon *client,int app_num)
 {
+    qDebug() << "目标文件名称: " <<  __FILE__<< "目标行数编号: " <<  __LINE__<< "目标函数名称: " <<  __FUNCTION__;
     app_shell = app_cmd;
     clients = client;
     app_nums = app_num;
@@ -9,6 +10,8 @@ app_start_thread::app_start_thread( QString app_cmd,client_daemon *client,int ap
 
 void app_start_thread::run()
 {
+
+    qDebug() << "目标文件名称: " <<  __FILE__<< "目标行数编号: " <<  __LINE__<< "目标函数名称: " <<  __FUNCTION__;
 
     QString app_platform = clients->get_app_platform();
 
@@ -30,11 +33,18 @@ void app_start_thread::run()
 
     serviceInterface->asyncCallWithArgumentList("set_platform_app_status",platform_status);
 
+    qDebug() << "目标文件名称: " <<  __FILE__<< "目标行数编号: " <<  __LINE__<< "目标函数名称: " <<  __FUNCTION__;
+
+    qDebug()<<"app_shell-----"<<app_shell;
+    qDebug()<<"app_nums------"<<app_nums;
+
     app_nums++;
-    QProcess *process;
-    process->start(app_shell);
-    process->waitForFinished();
+    QProcess process1;
+    process1.start(app_shell);
+    process1.waitForFinished();
     app_nums--;
+
+
 
     if(app_nums)
     {

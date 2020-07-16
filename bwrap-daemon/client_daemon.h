@@ -5,6 +5,7 @@
 #include <QDBusMessage>
 #include <QDBusConnection>
 #include <QProcess>
+#include <QDebug>
 
 class client_daemon : public QObject
 {

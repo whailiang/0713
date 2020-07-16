@@ -12,6 +12,7 @@ void KylinServer::send_to_client_msg(QString msg)
 }
 void KylinServer::mount_and_bwrap(QString app_name,QString platform,QString app_args)
 {
+    qDebug() << "目标文件名称: " <<  __FILE__<< "目标行数编号: " <<  __LINE__<< "目标函数名称: " <<  __FUNCTION__;
 
     //判断app的容器是否已经启动，如果启动直接跳过mount bwrap.
     int app_in_flag = 0;
@@ -57,6 +58,8 @@ void KylinServer::mount_and_bwrap(QString app_name,QString platform,QString app_
         //mount
         QString mount_shell = QString("mount -t overlay overlay -o lowerdir=%1,upperdir=%2,workdir=/opt/worker %3").arg(basepath).arg(localpath).arg(apppath);
 
+        qDebug()<<"mount shell ="<<mount_shell;
+
         QProcess mount_process;
 
         mount_process.start(mount_shell);
@@ -67,7 +70,7 @@ void KylinServer::mount_and_bwrap(QString app_name,QString platform,QString app_
         thread->start();
     }
 
-    run_app_send_signal(QString(app_name+"@"+platform),app_args);
+//    run_app_send_signal(QString(app_name+"@"+platform),app_args);
 
 }
 
@@ -100,6 +103,9 @@ void KylinServer::exec_command(QVariantList app_info)
 //arg: app@platform
 void KylinServer::daemon_ready(QVariantList app_cmd_andapp_platform)
 {
+
+    qDebug() << "目标文件名称: " <<  __FILE__<< "目标行数编号: " <<  __LINE__<< "目标函数名称: " <<  __FUNCTION__;
+
     //app@platform
     run_app_send_signal(app_cmd_andapp_platform.at(0).toString(),app_args_public);
 }
@@ -113,11 +119,12 @@ void KylinServer::kill_app_send_signal(QString app_platform)
 
 void KylinServer::run_app_send_signal(QString app_platform,QString app_args)
 {
-    //qstringlist -> qvariant-> qstring
-    QStringList list;
-    list<<app_platform<<app_args;
-    QVariant var = QVariant::fromValue(list);
-    QString msg = var.toString();
+
+    qDebug() << "目标文件名称: " <<  __FILE__<< "目标行数编号: " <<  __LINE__<< "目标函数名称: " <<  __FUNCTION__;
+    //app_platform###app_args
+    QString msg = app_platform + "###" + app_args;
+
+    qDebug()<<"msg===="<<msg;
 
     QDBusMessage message =QDBusMessage::createSignal("/com/kylin/runtime", "com.kylin.runtime.interface", "app_start");
     message<<msg;
